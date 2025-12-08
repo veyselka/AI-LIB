@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YWGyy+6/Vjg=",
+  "dgSpecHash": "YcsMmoIU6OU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\victus\\Desktop\\Bilgisayar Mühendisliği\\4. sınıf\\Bilgisayar Mühendisliği Tasarımı\\Aİ-Lib\\AI-Lib-Project\\AiLib.Backend\\AiLib.Backend.csproj",
+  "projectFilePath": "C:\\Users\\victus\\Desktop\\Bilgisayar Mühendisliği\\4. sınıf\\Bilgisayar Mühendisliği Tasarımı\\Aİ-Lib\\AI-Lib-Project\\AI-LIB\\AiLib.Backend\\AiLib.Backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\victus\\.nuget\\packages\\documentformat.openxml\\3.3.0\\documentformat.openxml.3.3.0.nupkg.sha512",
     "C:\\Users\\victus\\.nuget\\packages\\documentformat.openxml.framework\\3.3.0\\documentformat.openxml.framework.3.3.0.nupkg.sha512",

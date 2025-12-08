@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\victus\\Desktop\\Bilgisayar Mühendisliği\\4. sınıf\\Bilgisayar Mühendisliği Tasarımı\\Aİ-Lib\\AI-Lib-Project\\AiLib.Backend\\AiLib.Backend.csproj": {}
+    "C:\\Users\\victus\\Desktop\\Bilgisayar Mühendisliği\\4. sınıf\\Bilgisayar Mühendisliği Tasarımı\\Aİ-Lib\\AI-Lib-Project\\AI-LIB\\AiLib.Backend\\AiLib.Backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\victus\\Desktop\\Bilgisayar Mühendisliği\\4. sınıf\\Bilgisayar Mühendisliği Tasarımı\\Aİ-Lib\\AI-Lib-Project\\AiLib.Backend\\AiLib.Backend.csproj": {
+    "C:\\Users\\victus\\Desktop\\Bilgisayar Mühendisliği\\4. sınıf\\Bilgisayar Mühendisliği Tasarımı\\Aİ-Lib\\AI-Lib-Project\\AI-LIB\\AiLib.Backend\\AiLib.Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\victus\\Desktop\\Bilgisayar Mühendisliği\\4. sınıf\\Bilgisayar Mühendisliği Tasarımı\\Aİ-Lib\\AI-Lib-Project\\AiLib.Backend\\AiLib.Backend.csproj",
+        "projectUniqueName": "C:\\Users\\victus\\Desktop\\Bilgisayar Mühendisliği\\4. sınıf\\Bilgisayar Mühendisliği Tasarımı\\Aİ-Lib\\AI-Lib-Project\\AI-LIB\\AiLib.Backend\\AiLib.Backend.csproj",
         "projectName": "AiLib.Backend",
-        "projectPath": "C:\\Users\\victus\\Desktop\\Bilgisayar Mühendisliği\\4. sınıf\\Bilgisayar Mühendisliği Tasarımı\\Aİ-Lib\\AI-Lib-Project\\AiLib.Backend\\AiLib.Backend.csproj",
+        "projectPath": "C:\\Users\\victus\\Desktop\\Bilgisayar Mühendisliği\\4. sınıf\\Bilgisayar Mühendisliği Tasarımı\\Aİ-Lib\\AI-Lib-Project\\AI-LIB\\AiLib.Backend\\AiLib.Backend.csproj",
         "packagesPath": "C:\\Users\\victus\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\victus\\Desktop\\Bilgisayar Mühendisliği\\4. sınıf\\Bilgisayar Mühendisliği Tasarımı\\Aİ-Lib\\AI-Lib-Project\\AiLib.Backend\\obj\\",
+        "outputPath": "C:\\Users\\victus\\Desktop\\Bilgisayar Mühendisliği\\4. sınıf\\Bilgisayar Mühendisliği Tasarımı\\Aİ-Lib\\AI-Lib-Project\\AI-LIB\\AiLib.Backend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

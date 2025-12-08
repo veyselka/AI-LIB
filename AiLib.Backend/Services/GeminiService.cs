@@ -40,8 +40,18 @@ namespace AiLib.Backend.Services
         {
             string prompt = $@"
                 Aşağıdaki belge içeriğini analiz edin: '{documentTitle}'. 
-                Belgenin ana argümanlarını, kilit noktalarını ve sonuçlarını kapsayan detaylı, 
-                çok paragraflı, akademik ve okunabilir bir özet (summary) oluşturun. 
+                Belgenin ana argümanlarını, kilit noktalarını, önemli detayları ve sonuçlarını kapsayan 
+                kapsamlı, uzun ve detaylı bir özet oluşturun. 
+                
+                Özet en az 5-6 paragraf uzunluğunda olmalı ve şu bölümleri içermelidir:
+                1. Genel Bakış: Belgenin ana konusu ve amacı
+                2. Ana Fikirler: Belgedeki temel kavramlar ve argümanlar
+                3. Detaylı İçerik: Önemli bilgiler, örnekler ve açıklamalar
+                4. Kilit Noktalar: Vurgulanan önemli detaylar
+                5. Sonuç ve Çıkarımlar: Belgenin sonuçları ve önerileri
+                
+                Her paragraf en az 4-5 cümle içermeli ve akademik bir dilde yazılmalıdır.
+                
                 Belge içeriği: 
                 ---
                 {rawText}
@@ -54,8 +64,15 @@ namespace AiLib.Backend.Services
         public async Task<string> GenerateQuestionsAsync(string rawText, string documentTitle)
         {
             string prompt = $@"
-                Aşağıdaki belge içeriğini ('{documentTitle}') analiz edin ve hem klasik 
-                (açık uçlu) hem de çoktan seçmeli formatta toplam 5 adet sınav sorusu üretin.
+                Aşağıdaki belge içeriğini ('{documentTitle}') analiz edin ve MUTLAKA TOPLAM 10 ADET sınav sorusu üretin.
+                
+                ÖNEMLI KURALLAR:
+                - Tam olarak 10 soru olmalı (5 klasik açık uçlu + 5 çoktan seçmeli)
+                - Klasik sorular detaylı ve uzun yanıtlar gerektirmeli (en az 3-4 cümle)
+                - Çoktan seçmeli sorular zorlayıcı olmalı
+                - Tüm seçenekler makul görünmeli
+                - Sorular belgenin farklı bölümlerini kapsamalı
+                
                 Yanıtları sadece aşağıdaki JSON formatında döndürün, başka hiçbir metin eklemeyin.
 
                 JSON Formatı:
@@ -63,8 +80,8 @@ namespace AiLib.Backend.Services
                     ""questions"": [
                         {{
                             ""type"": ""classic"",
-                            ""question"": ""[Soru Metni]"",
-                            ""answer"": ""[Detaylı Yanıt]""
+                            ""question"": ""[Detaylı Soru Metni]"",
+                            ""answer"": ""[Kapsamlı ve detaylı yanıt, en az 3-4 cümle]""
                         }},
                         {{
                             ""type"": ""multiple_choice"",
