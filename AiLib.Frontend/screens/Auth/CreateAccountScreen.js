@@ -40,41 +40,51 @@ const CreateAccountScreen = () => {
     }
 
     try {
+      console.log("Firebase Auth başlatılıyor...", auth);
+      console.log("Kayıt denemesi:", email);
       
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      
+      console.log("Firebase kullanıcı oluşturuldu:", user.uid);
       
       await updateProfile(user, { displayName: fullName });
+      console.log("Profil güncellendi");
 
-      
       const idToken = await user.getIdToken();
+      console.log("Token alındı");
 
-      
       await signIn(idToken);
 
-      
+      // Backend'e kayıt
       try {
-        await axios.post(`${API_URL}/api/Auth/register`, {
+        const response = await axios.post(`${API_URL}/api/Auth/register`, {
           idToken: idToken,
           fullName: fullName
         });
+        console.log("Backend kayıt başarılı:", response.data);
       } catch (backendError) {
-        console.warn("Backend kayıt hatası (Firebase başarılı):", backendError);
+        console.warn("Backend kayıt hatası (Firebase başarılı):", backendError.message);
       }
 
       Alert.alert("Başarılı!", "Hesabınız oluşturuldu!");
 
     } catch (error) {
-      console.error(error);
+      console.error("Firebase Kayıt Hatası:", error);
+      console.error("Hata Kodu:", error.code);
+      console.error("Hata Mesajı:", error.message);
+      
       if (error.code === 'auth/email-already-in-use') {
         Alert.alert("Hata", "Bu e-posta adresi zaten kullanılıyor.");
       } else if (error.code === 'auth/weak-password') {
         Alert.alert("Hata", "Şifre çok zayıf. En az 6 karakter olmalı.");
+      } else if (error.code === 'auth/invalid-email') {
+        Alert.alert("Hata", "Geçersiz e-posta adresi.");
+      } else if (error.code === 'auth/operation-not-allowed') {
+        Alert.alert("Firebase Hatası", "Email/Password authentication Firebase Console'da etkinleştirilmemiş. Lütfen Firebase Console > Authentication > Sign-in method bölümünden Email/Password'ü etkinleştirin.");
       } else if (error.response) {
         Alert.alert("Backend Hatası", error.response.data.message);
       } else {
-        Alert.alert("Bir Hata Oluştu", error.message);
+        Alert.alert("Bir Hata Oluştu", `${error.code}: ${error.message}`);
       }
     }
   };

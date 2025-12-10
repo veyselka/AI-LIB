@@ -17,7 +17,7 @@ namespace AiLib.Backend.Services
 
     public class GeminiService
     {
-        private const string GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
+        private const string GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
 
         private readonly HttpClient _httpClient;
         private readonly string _apiKey;
@@ -129,12 +129,13 @@ namespace AiLib.Backend.Services
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
                 // API çağrısını yap
+                Console.WriteLine($"[GEMINI REQUEST] Calling API with prompt length: {prompt.Length}");
                 var response = await _httpClient.PostAsync($"{GEMINI_API_URL}?key={_apiKey}", content);
 
                 if (response.IsSuccessStatusCode)
                 {
                     var responseString = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine($"[GEMINI RESPONSE] {responseString.Substring(0, Math.Min(500, responseString.Length))}...");
+                    Console.WriteLine($"[GEMINI RESPONSE] Success! Response length: {responseString.Length}");
                     var jsonResponse = JsonSerializer.Deserialize<JsonElement>(responseString);
 
                     // Gemini yanıtını parse et

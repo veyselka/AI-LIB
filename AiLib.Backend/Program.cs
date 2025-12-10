@@ -10,10 +10,30 @@ var builder = WebApplication.CreateBuilder(args);
 // -----------------------------------------------------------------
 var firebaseCredentialPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "serviceAccountKey.json");
 
-FirebaseApp.Create(new AppOptions()
+Console.WriteLine($"[FIREBASE] Credential path: {firebaseCredentialPath}");
+Console.WriteLine($"[FIREBASE] File exists: {File.Exists(firebaseCredentialPath)}");
+
+// Environment variable ayarla (Firestore için gerekli)
+Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", firebaseCredentialPath);
+
+if (FirebaseApp.DefaultInstance == null)
 {
-    Credential = GoogleCredential.FromFile(firebaseCredentialPath)
-});
+    try
+    {
+        var credential = GoogleCredential.FromFile(firebaseCredentialPath);
+        FirebaseApp.Create(new AppOptions()
+        {
+            Credential = credential,
+            ProjectId = "ai-lib-learning-app"
+        });
+        Console.WriteLine("[FIREBASE] Firebase Admin SDK başarıyla başlatıldı.");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"[FIREBASE ERROR] Firebase başlatma hatası: {ex.Message}");
+        throw;
+    }
+}
 // -----------------------------------------------------------------
 
 
@@ -26,10 +46,7 @@ builder.Services.AddCors(options =>
         policy =>
         {
             // React Native (Web) ve mobil cihazlardan erişim için
-            policy.WithOrigins(
-                    "http://localhost:8081",           // Local development
-                    "http://192.168.1.137:8081"        // Network access
-                  )
+            policy.AllowAnyOrigin()
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
@@ -68,14 +85,25 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 // FirestoreDb servisini Dependency Injection (DI) olarak kaydet
 builder.Services.AddSingleton<Google.Cloud.Firestore.FirestoreDb>(sp =>
 {
-    string credentialPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "serviceAccountKey.json");
-    var credential = GoogleCredential.FromFile(credentialPath);
-
-    return new Google.Cloud.Firestore.FirestoreDbBuilder
+    try
     {
-        ProjectId = "ai-lib-learning-app",
-        Credential = credential
-    }.Build();
+        var credPath = Environment.GetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS");
+        Console.WriteLine($"[FIRESTORE] Bağlantı kuruluyor...");
+        Console.WriteLine($"[FIRESTORE] Credential path: {credPath}");
+        
+        var db = new Google.Cloud.Firestore.FirestoreDbBuilder
+        {
+            ProjectId = "ai-lib-learning-app"
+        }.Build();
+        
+        Console.WriteLine($"[FIRESTORE] Firestore başarıyla bağlandı.");
+        return db;
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"[FIRESTORE ERROR] Bağlantı hatası: {ex.Message}");
+        throw;
+    }
 });
 
 // Gemini API ayarlarını appsettings.json'dan oku

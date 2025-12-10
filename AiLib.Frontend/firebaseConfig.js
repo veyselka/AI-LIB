@@ -1,8 +1,10 @@
 // firebaseConfig.js
 import { initializeApp } from "firebase/app";
-import { getAuth } from 'firebase/auth';
+import { getAuth, initializeAuth, getReactNativePersistence } from 'firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Platform } from 'react-native';
 
-// Sizin Firebase Konsolu'ndan kopyaladığınız yapılandırma
+// Firebase yapılandırması
 const firebaseConfig = {
   apiKey: "AIzaSyAEy3OYFnPqRiHjRM73O_82ZOJylLTg7rs",
   authDomain: "ai-lib-learning-app.firebaseapp.com",
@@ -16,8 +18,19 @@ const firebaseConfig = {
 // Firebase uygulamasını başlat
 const app = initializeApp(firebaseConfig);
 
-// BASIT ÇÖZÜM: Tüm platformlar için standart getAuth
-// Firebase kendi persistence'ını yönetecek (indexedDB web için, memory mobil için)
-const auth = getAuth(app);
+// Auth'u platforma göre başlat
+let auth;
+try {
+  if (Platform.OS === 'web') {
+    auth = getAuth(app);
+  } else {
+    auth = initializeAuth(app, {
+      persistence: getReactNativePersistence(AsyncStorage)
+    });
+  }
+} catch (error) {
+  // Eğer auth zaten başlatılmışsa getAuth kullan
+  auth = getAuth(app);
+}
 
-export { auth };
+export { auth, app };

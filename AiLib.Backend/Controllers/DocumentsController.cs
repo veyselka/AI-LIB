@@ -161,16 +161,29 @@ namespace AiLib.Backend.Controllers
         [HttpGet]
         public async Task<IActionResult> GetMyDocuments()
         {
+            Console.WriteLine("[GET DOCUMENTS] ========== İSTEK BAŞLADI ==========");
+            
             string? userId = User.FindFirst("user_id")?.Value;
-            if (string.IsNullOrEmpty(userId)) return Unauthorized();
+            
+            Console.WriteLine($"[GET DOCUMENTS] User ID: {userId}");
+            Console.WriteLine($"[GET DOCUMENTS] User Claims: {string.Join(", ", User.Claims.Select(c => $"{c.Type}={c.Value}"))}");
+            
+            if (string.IsNullOrEmpty(userId)) 
+            {
+                Console.WriteLine("[GET DOCUMENTS ERROR] User ID bulunamadı - Unauthorized");
+                return Unauthorized(new { message = "Kullanıcı kimliği doğrulanamadı." });
+            }
 
             try
             {
+                Console.WriteLine($"[GET DOCUMENTS] Firestore'dan dokümanlar çekiliyor...");
                 // Veri Yolu: /users/{userId}/documents
                 CollectionReference docCollection = _db.Collection("users").Document(userId).Collection("documents");
 
                 // Dokümanları tarihe göre sıralayarak al
                 QuerySnapshot snapshot = await docCollection.OrderByDescending("uploadDate").GetSnapshotAsync();
+                
+                Console.WriteLine($"[GET DOCUMENTS] {snapshot.Count} doküman bulundu");
                 
                 var documents = new List<object>();
 
@@ -182,10 +195,13 @@ namespace AiLib.Backend.Controllers
                     documents.Add(doc);
                 }
 
+                Console.WriteLine("[GET DOCUMENTS] ========== İSTEK BAŞARILI ==========");
                 return Ok(documents);
             }
             catch (Exception ex)
             {
+                Console.WriteLine($"[GET DOCUMENTS ERROR] Hata: {ex.Message}");
+                Console.WriteLine($"[GET DOCUMENTS ERROR] Stack Trace: {ex.StackTrace}");
                 return StatusCode(500, new { message = "Dokümanlar yüklenirken sunucu hatası.", details = ex.Message });
             }
         }
