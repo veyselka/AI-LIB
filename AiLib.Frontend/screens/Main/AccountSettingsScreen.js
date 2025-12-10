@@ -8,7 +8,7 @@ import { COLORS } from '../../constants/Colors';
 const AccountSettingsScreen = () => {
     const navigation = useNavigation();
 
-    // Menü öğeleri (4.png'ye göre)
+    
     const menuItems = [
         { 
             name: "Edit Profile", 
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     menuContainer: {
         backgroundColor: COLORS.inputBackground,
         borderRadius: 12,
-        overflow: 'hidden', // Alt çizgilerin container içinde kalması için
+        overflow: 'hidden', 
     },
     menuItem: {
         flexDirection: 'row',

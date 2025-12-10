@@ -100,12 +100,12 @@ namespace AiLib.Backend.Services
             return await CallGeminiApiAsync(prompt);
         }
 
-        // --- ANA API ÇAĞRI METODU ---
+        
         private async Task<string> CallGeminiApiAsync(string prompt)
         {
             try
             {
-                // Gemini API için request body oluştur
+                
                 var requestBody = new
                 {
                     contents = new[]
@@ -121,7 +121,7 @@ namespace AiLib.Backend.Services
                     generationConfig = new
                     {
                         temperature = 0.5,
-                        maxOutputTokens = 8192  // Token limitini artırdık (2048 -> 8192)
+                        maxOutputTokens = 8192  
                     }
                 };
 
@@ -151,19 +151,19 @@ namespace AiLib.Backend.Services
                             {
                                 var text = textElement.GetString() ?? "[Gemini API'den içerik alınamadı.]";
                                 
-                                // Gemini bazen JSON'u markdown code block içinde gönderiyor, temizle
+                                
                                 text = text.Trim();
                                 if (text.StartsWith("```json"))
                                 {
-                                    text = text.Substring(7); // "```json" kaldır
+                                    text = text.Substring(7); 
                                 }
                                 if (text.StartsWith("```"))
                                 {
-                                    text = text.Substring(3); // "```" kaldır
+                                    text = text.Substring(3); 
                                 }
                                 if (text.EndsWith("```"))
                                 {
-                                    text = text.Substring(0, text.Length - 3); // "```" kaldır
+                                    text = text.Substring(0, text.Length - 3); 
                                 }
                                 
                                 return text.Trim();

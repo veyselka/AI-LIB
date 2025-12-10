@@ -40,20 +40,20 @@ const CreateAccountScreen = () => {
     }
 
     try {
-      // 1. Firebase Authentication'a (Client) kaydet
+      
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       
-      // 2. Kullanıcının görünen adını Firebase'e kaydet
+      
       await updateProfile(user, { displayName: fullName });
 
-      // 3. Firebase'den ID Token'ı al
+      
       const idToken = await user.getIdToken();
 
-      // 4. Token'ı Context'e kaydet (otomatik giriş)
+      
       await signIn(idToken);
 
-      // 5. C# Backend'imize token'ı ve adı gönder (opsiyonel - hata olsa da devam et)
+      
       try {
         await axios.post(`${API_URL}/api/Auth/register`, {
           idToken: idToken,
@@ -147,7 +147,7 @@ const CreateAccountScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.background, // <--- Burada COLORS kullanılıyor
+    backgroundColor: COLORS.background, 
   },
   scrollContainer: {
     flexGrow: 1,

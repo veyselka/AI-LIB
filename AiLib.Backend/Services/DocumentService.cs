@@ -7,10 +7,10 @@ using UglyToad.PdfPig;
 
 namespace AiLib.Backend.Services
 {
-    // Bu servis, ana iş mantığını (parsing, AI çağrısı) yönetecek.
+    
     public class DocumentService
     {
-        // Dosya türüne göre metin içeriğini çıkarmaktan sorumlu metod.
+        
         public async Task<string> ExtractTextAsync(IFormFile file)
         {
             if (file == null || file.Length == 0)
@@ -20,11 +20,11 @@ namespace AiLib.Backend.Services
 
             string? fileExtension = Path.GetExtension(file.FileName)?.ToLower();
 
-            // Dosya içeriğini bellekte tutmak için MemoryStream kullanıyoruz
+            
             using (var stream = new MemoryStream())
             {
                 await file.CopyToAsync(stream);
-                stream.Position = 0; // Başlangıca dön
+                stream.Position = 0; 
 
                 switch (fileExtension)
                 {
@@ -35,16 +35,16 @@ namespace AiLib.Backend.Services
                     case ".pptx":
                         return ExtractTextFromPptx(stream);
                     default:
-                        // Desteklenmeyen dosyalar için Backend'de zaten kontrol var.
+                        
                         return string.Empty; 
                 }
             }
         }
 
-        // --- PDF Ayrıştırma (PdfPig Kütüphanesi) ---
+        // --- PDF Ayrıştırma (PdfPig Kütüphanesi) --
         private string ExtractTextFromPdf(Stream stream)
         {
-            // PdfPig, Stream'den PDF içeriğini okur
+            
             using (var document = PdfDocument.Open(stream))
             {
                 var text = new System.Text.StringBuilder();
@@ -74,7 +74,7 @@ namespace AiLib.Backend.Services
             }
             catch (Exception ex)
             {
-                // Hata olması durumunda logla (örn: bozuk dosya)
+                
                 text.Append($"[HATA: DOCX Ayrıştırma Başarısız] {ex.Message}");
             }
             return text.ToString();

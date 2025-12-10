@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AiLib.Backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+23f7d49c3abe00dbc3f009f635d73914e6856dff")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7c8c2a731d14e8c91e29701b3231aa67cab522ba")]
 [assembly: System.Reflection.AssemblyProductAttribute("AiLib.Backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AiLib.Backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
